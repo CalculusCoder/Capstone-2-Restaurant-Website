@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Menu from "../ui_general/menu";
 import Link from "next/link";
 import CartIcon from "../ui_general/cart_icon";
-import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +15,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { User2 } from "lucide-react";
@@ -35,7 +33,7 @@ const HomeNavbar = () => {
     setUserId(storedUserId);
   }, []);
 
-  const { isLoading, isError, data, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["cart-details"],
     queryFn: async () => {
       const response = await axios.get(`/api/cart-details`, {

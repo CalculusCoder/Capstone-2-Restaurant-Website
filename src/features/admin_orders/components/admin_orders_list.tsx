@@ -26,6 +26,11 @@ type Toppings = {
   topping_name: string;
 };
 
+type OrderData = {
+  orderId: number;
+  status: string;
+};
+
 const AdminOrdersList = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { toast } = useToast();
@@ -36,7 +41,7 @@ const AdminOrdersList = () => {
     setUserId(storedUserId);
   }, []);
 
-  const { isLoading, isError, data, error, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["admin-orders"],
     queryFn: async () => {
       const response = await axios.get("/api/admin-orders", {
@@ -52,15 +57,13 @@ const AdminOrdersList = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: OrderData) => {
       const response = await axios.put(`/api/admin-orders-update`, { ...data });
       return response.data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
       queryClient.invalidateQueries({ queryKey: ["track-orders"] });
-
-      console.log("Track orders query invalidated");
 
       toast({
         title: "Success",
