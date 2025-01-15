@@ -1,6 +1,19 @@
+import { createClient } from "@supabase/supabase-js";
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV || "development"}`,
 });
+
+if (
+  !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+) {
+  throw new Error("Supabase environment variables are missing!");
+}
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const isProduction = process.env.NODE_ENV === "production";
 
