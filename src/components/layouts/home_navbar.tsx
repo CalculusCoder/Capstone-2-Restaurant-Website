@@ -125,7 +125,7 @@ const HomeNavbar = () => {
 
               {userId && (
                 <div>
-                  {userId === "4" ? (
+                  {userId === "2" ? (
                     <div>
                       <DropdownMenuItem asChild>
                         <Link href={"/admin-orders"}>Admin Orders</Link>
@@ -135,6 +135,9 @@ const HomeNavbar = () => {
                     <div>
                       <DropdownMenuItem asChild>
                         <Link href={"/track-orders"}>Track Orders</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={"/admin"}>Add Menu Items</Link>
                       </DropdownMenuItem>
                     </div>
                   )}
