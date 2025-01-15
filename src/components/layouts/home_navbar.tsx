@@ -130,14 +130,14 @@ const HomeNavbar = () => {
                       <DropdownMenuItem asChild>
                         <Link href={"/admin-orders"}>Admin Orders</Link>
                       </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={"/admin"}>Add Menu Items</Link>
+                      </DropdownMenuItem>
                     </div>
                   ) : (
                     <div>
                       <DropdownMenuItem asChild>
                         <Link href={"/track-orders"}>Track Orders</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href={"/admin"}>Add Menu Items</Link>
                       </DropdownMenuItem>
                     </div>
                   )}
