@@ -20,3 +20,16 @@ Miami Delights was built using the following technologies:
 - **Vercel Hosting**: Deployment platform for the application.
 - **Supabase**: Database hosting and backend-as-a-service.
 
+## Database Schema
+
+Here is the SQL schema for the application's tables:
+
+### Orders Table
+```sql
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    order_status VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
