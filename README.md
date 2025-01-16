@@ -12,7 +12,7 @@ For my Capstone 2 project, my team and I built a full-stack web application for 
 Miami Delights was built using the following technologies:
 
 - **Next.js**: Framework for the front-end and server-side rendering.
-- **PostgreSQL**: Database.
+- **PostgreSQL**: SQL Database.
 - **TanStack Query**: Data-fetching and state management.
 - **React Formik**: Form handling and validation.
 - **Zod Validation**: Client and server validation for forms and API.
