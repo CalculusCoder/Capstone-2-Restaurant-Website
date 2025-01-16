@@ -11,6 +11,7 @@ For my Capstone 2 project, my team and I built a full-stack web application for 
 
 Miami Delights was built using the following technologies:
 
+- **Typescript**: For static type checking.
 - **Next.js**: Framework for the front-end and server-side rendering.
 - **PostgreSQL**: SQL Database.
 - **TanStack Query**: Data-fetching and state management.
