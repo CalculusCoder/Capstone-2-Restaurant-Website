@@ -15,7 +15,7 @@ Miami Delights was built using the following technologies:
 - **PostgreSQL**: SQL Database.
 - **TanStack Query**: Data-fetching and state management.
 - **React Formik**: Form handling and validation.
-- **Zod Validation**: Client and server validation for forms and API.
+- **Zod Validation**: Client and server side validation for forms and API.
 - **ShadCN UI**: UI components for a sleek and responsive design.
 - **Vercel Hosting**: Deployment platform for the application.
 - **Supabase**: Database hosting and backend-as-a-service.
