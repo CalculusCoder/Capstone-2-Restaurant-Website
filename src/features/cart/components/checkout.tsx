@@ -105,6 +105,8 @@ const Checkout: React.FC<Props> = ({ cartData, totalAmount }) => {
     },
   });
 
+  const isCartEmpty = !cartData || cartData.length === 0;
+
   return (
     <>
       <div className="flex flex-col gap-y-4">
@@ -146,11 +148,9 @@ const Checkout: React.FC<Props> = ({ cartData, totalAmount }) => {
           </div>
         ))}
 
-        {(cartData?.length === 0 || !cartData) && (
-          <div>Start addding items to your cart!</div>
-        )}
+        {isCartEmpty && <div>Start adding items to your cart!</div>}
 
-        {cartData.length > 0 && (
+        {!isCartEmpty && (
           <div className="flex justify-between">
             <div className="font-semibold">
               Total Amount: <span className="text-red-500">${totalAmount}</span>
