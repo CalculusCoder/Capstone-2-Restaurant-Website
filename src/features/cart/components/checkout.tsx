@@ -146,7 +146,7 @@ const Checkout: React.FC<Props> = ({ cartData, totalAmount }) => {
           </div>
         ))}
 
-        {(cartData.length === 0 || !cartData) && (
+        {(cartData?.length === 0 || !cartData) && (
           <div>Start addding items to your cart!</div>
         )}
 
