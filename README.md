@@ -12,12 +12,11 @@ For my Capstone 2 project, my team and I built a full-stack web application for 
 Miami Delights was built using the following technologies:
 
 - **Next.js**: Framework for the front-end and server-side rendering.
-- **PostgreSQL**: Database for storing application data.
-- **TanStack Query**: Data-fetching and state management library.
+- **PostgreSQL**: Database.
+- **TanStack Query**: Data-fetching and state management.
 - **React Formik**: Form handling and validation.
-- **Zod Validation**: Schema validation for forms and API.
+- **Zod Validation**: Client and server validation for forms and API.
 - **ShadCN UI**: UI components for a sleek and responsive design.
 - **Vercel Hosting**: Deployment platform for the application.
 - **Supabase**: Database hosting and backend-as-a-service.
 
-The project is hosted on **Vercel** with a **Supabase**-hosted database to ensure scalability and reliability.
