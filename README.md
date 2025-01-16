@@ -1,40 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Capstone 2: Restaurant Website - Miami Delights
 
-## Getting Started
+For my Capstone 2 project, my team and I built a full-stack web application for a restaurant named **Miami Delights**. The restaurant requested several features, including:
 
-First, run the development server:
+- **Order Tracking**: Allowing customers to track their orders in real-time.
+- **Payment Processing**: Seamless and secure online payment functionality.
+- **Shopping Cart**: A fully functional cart for customers to manage their orders before checkout.
+- **Admin Management**: Tools for the restaurant owner or admin to manage orders and products efficiently.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Technologies Used
+
+Miami Delights was built using the following technologies:
+
+- **Typescript**: For static type checking.
+- **Next.js**: Framework for the front-end and server-side rendering.
+- **PostgreSQL**: SQL Database.
+- **TanStack Query**: Data-fetching and state management.
+- **React Formik**: Form handling and validation.
+- **Zod Validation**: Client and server side validation for forms and API.
+- **ShadCN UI**: UI components for a sleek and responsive design.
+- **Vercel Hosting**: Deployment platform for the application.
+- **Supabase**: Database hosting and backend-as-a-service.
+
+## Database Schema
+
+Here is the SQL schema for the application's tables:
+
+### Users Table
+```sql
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Products Table
+```sql
+CREATE TABLE IF NOT EXISTS products(
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    product_category VARCHAR (50) NOT NULL,
+    image_url VARCHAR(50) NOT NULL
+);
+```
+### Toppings Table
+```sql
+CREATE TABLE IF NOT EXISTS toppings (
+    topping_id SERIAL PRIMARY KEY,
+    topping_name VARCHAR(255) NOT NULL,
+    additional_price NUMERIC(10, 2) DEFAULT 0,
+    product_id INTEGER NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE
+);
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Cart Table
+```sql
+CREATE TABLE IF NOT EXISTS cart (
+    cart_id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INTEGER NOT NULL UNIQUE, 
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+);
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Cart Items Table
+```sql
+CREATE TABLE IF NOT EXISTS cart_items (
+    cart_item_id SERIAL PRIMARY KEY,
+    quantity INT NOT NULL DEFAULT 1,
+    total_price NUMERIC(10, 2) NOT NULL,
+    cart_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products (product_id) ON DELETE CASCADE,
+    FOREIGN KEY (cart_id) REFERENCES cart (cart_id) ON DELETE CASCADE
+);
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Cart Item Toppings
+```sql
+CREATE TABLE IF NOT EXISTS cart_item_toppings (
+    cart_item_topping_id SERIAL PRIMARY KEY,
+    cart_item_id INTEGER NOT NULL,
+    topping_id INTEGER NOT NULL,
+    FOREIGN KEY (cart_item_id) REFERENCES cart_items(cart_item_id) ON DELETE CASCADE,
+    FOREIGN KEY (topping_id) REFERENCES toppings(topping_id) ON DELETE CASCADE
+);
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+### Orders Table
+```sql
+CREATE TABLE IF NOT EXISTS orders (
+    order_id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_amount NUMERIC(10, 2) NOT NULL,
+    order_status VARCHAR(50) NOT NULL CHECK (order_status IN ('preparing', 'oven', 'ready', 'delivered')),
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+);
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Order Items Table
+```sql
+CREATE TABLE IF NOT EXISTS order_items (
+    order_item_id SERIAL PRIMARY KEY,
+    quantity INT NOT NULL DEFAULT 1,
+    total_price NUMERIC(10, 2) NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    order_id INTEGER NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders (order_id) ON DELETE CASCADE
+);
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+### Order Item Toppings Table
+```sql
+CREATE TABLE IF NOT EXISTS order_item_toppings (
+    order_item_topping_id SERIAL PRIMARY KEY,
+    topping_name VARCHAR(255) NOT NULL,
+    order_item_id INTEGER NOT NULL,
+    FOREIGN KEY (order_item_id) REFERENCES order_items (order_item_id) ON DELETE CASCADE
+);
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
