@@ -17,6 +17,7 @@ export default async function createNewProduct(
 
     res.status(200).json({ pizzas, burgers });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       error:
         error instanceof Error
