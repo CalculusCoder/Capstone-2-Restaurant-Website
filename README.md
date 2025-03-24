@@ -20,6 +20,7 @@ Miami Delights was built using the following technologies:
 - **ShadCN UI**: UI components for a sleek and responsive design.
 - **Vercel Hosting**: Deployment platform for the application.
 - **Supabase**: Database hosting and backend-as-a-service.
+- **Stripe**: Payment processing.
 
 ## Database Schema
 
